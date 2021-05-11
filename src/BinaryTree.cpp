@@ -22,6 +22,13 @@ namespace lomboy_a4 {
         entries = bt.entries;
     }
 
+    // destructor clears tree
+    template <class DataType>
+    BinaryTree<DataType>::~BinaryTree() {
+        clearTree();
+        cout << "rootPtr: " << rootPtr << endl;
+    }
+
     // Inserts an entry to the next available leaf
     template <class DataType>
     void BinaryTree<DataType>::insert(DataType dat) {
@@ -65,14 +72,20 @@ namespace lomboy_a4 {
                 nodePtr->setRight(tempNode);
                 currentPtr = nodePtr->getRight();
             }
-            // call recursive insert ?? another comparison
+            // call recursive insert
             else {
-                insert(dat, nodePtr->getLeft());
+                insert(dat, nodePtr->getRight());
             }
         }
 
         // avoid dangling pointer (automatically freed after going OOS)
         tempNode = nullptr;
+    }
+
+    // This method returns true if entry is found within tree.
+    template <class DataType>
+    bool search(DataType dat) {
+
     }
 
     // Iterates over all entries in tree, printing in-order
@@ -81,7 +94,29 @@ namespace lomboy_a4 {
         dispInorder(rootPtr);
     }
 
-    // Iterates over all entries in tree, printing in-order 
+    // This method clears all tree entries, leaving rootPtr nullptr.
+    template <class DataType>
+    void BinaryTree<DataType>::clearTree() {
+        // clear entries if tree is not empty
+        clearTree(rootPtr);
+    }
+
+    // This helper method is the recursive version of clearTree.
+    template <class DataType>
+    void BinaryTree<DataType>::clearTree(BinaryTreeNode<DataType>*& nodePtr) {
+        // clear entries if tree is not empty
+        if (nodePtr != nullptr) {
+            // clear left and right subtrees
+            clearTree(nodePtr->getLeft());
+            clearTree(nodePtr->getRight());
+            
+            // finally, clear node at root
+            delete nodePtr;
+            nodePtr = nullptr;
+        }
+    }
+
+    // Iterates over all entries in tree, printing in-order (LT ROOT RT)
     template <class DataType>
     void BinaryTree<DataType>::dispInorder(const BinaryTreeNode<DataType>* nodePtr) {
         if (nodePtr != nullptr) {

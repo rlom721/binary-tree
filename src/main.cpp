@@ -17,6 +17,12 @@ int main() {
     bt.insert(5);
     bt.insert(6);
     bt.insert(4);
+    // bt.iterate();
+    bt.clearTree();
+    bt.insert(1);
+    bt.insert(2);
+    bt.insert(0);
+    bt.insert(3);
     bt.iterate();
 
     return 0;

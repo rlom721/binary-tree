@@ -30,8 +30,10 @@ namespace lomboy_a4 {
         // void setKey(const DataType& ldt);  // no need?
         void setRight(BinaryTreeNode* rightPtr);
         void setLeft(BinaryTreeNode* leftPtr);
-        BinaryTreeNode* getLeft() { return leftPtr; }       // needed??
-        BinaryTreeNode* getRight() { return rightPtr; }        
+        BinaryTreeNode*& getLeft() { return leftPtr; }       // needed??
+        BinaryTreeNode*& getRight() { return rightPtr; }
+        // BinaryTreeNode* getLeft() { return leftPtr; }       // needed??
+        // BinaryTreeNode* getRight() { return rightPtr; }         
         // constant methods
         DataType getData() const { return data; }
         const BinaryTreeNode* getRight() const { return rightPtr; }   // cannot change DATA

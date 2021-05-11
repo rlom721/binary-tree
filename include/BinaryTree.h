@@ -18,22 +18,24 @@ namespace lomboy_a4 {
         // typedef
         typedef DataType dataType;   // to access data type of binary tree
         // enumerated (codes for method parameters)
-        enum class Code { PREORDER, INORDER, POSTORDER };
+        enum class Code { ASCEND, DESCEND, PREORDER, INORDER, POSTORDER };
         // constructors
         BinaryTree();                       // default
         BinaryTree(DataType dat);           // parametrized
         BinaryTree(const BinaryTree& bt);   // copy ???
         // destructor
-        // ~BinaryTree();
+        ~BinaryTree();
         // modification methods
         void insert(DataType dat);
         bool search(DataType dat);
-        void sortAsc();
-        void sortDsc();
+        void sort(Code orderMode);
+        // void sortAsc();
+        // void sortDsc();
         void remove(DataType dat);
+        void clearTree();
+        // constant methods
         void iterate();     // default is in-order
         // void iterate(Code orderMode);     // make enum of modes? (post, pre, in order)
-        // constant methods
         int getEntries() { return entries; }
         // overloaded operators
         // BinaryTree& operator=(const BinaryTree& li);
@@ -41,11 +43,12 @@ namespace lomboy_a4 {
     private:
         // member variables
         BinaryTreeNode<DataType>* rootPtr;
-        BinaryTreeNode<DataType>* currentPtr;   // current node pointer
+        BinaryTreeNode<DataType>* currentPtr;   // current node pointer (latest insert)
         int entries;
         // helper methods
         void insert(DataType dat, BinaryTreeNode<DataType>* nodePtr);
         void dispInorder(const BinaryTreeNode<DataType>* nodePtr);
+        void clearTree(BinaryTreeNode<DataType>*& node);
     };
 
 }
