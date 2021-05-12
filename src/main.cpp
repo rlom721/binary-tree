@@ -23,7 +23,25 @@ int main() {
     bt.insert(2);
     bt.insert(0);
     bt.insert(3);
+    cout << "1 in tree? " << (bt.search(1) ? "true" : "false") << endl;
+    cout << "2 in tree? " << (bt.search(2) ? "true" : "false") << endl;
+    cout << "0 in tree? " << (bt.search(0) ? "true" : "false") << endl;
+    cout << "3 in tree? " << (bt.search(3) ? "true" : "false") << endl;
+    cout << "4 in tree? " << (bt.search(4) ? "true" : "false") << endl;
     bt.iterate();
+    bt.sort(BinaryTree<int>::Code::ASCEND);
+
+    for (int i = 0; i < bt.getEntries(); i++) 
+        cout << " " << bt.sortedEntries[i];
+    
+    cout << endl;
+
+    bt.sort(BinaryTree<int>::Code::DESCEND);
+
+    for (int i = 0; i < bt.getEntries(); i++) 
+        cout << " " << bt.sortedEntries[i];
+    
+    cout << endl;
 
     return 0;
 }

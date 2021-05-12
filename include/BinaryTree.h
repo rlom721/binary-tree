@@ -6,7 +6,7 @@
 #define BINARYTREE_H
 
 #include "BinaryTreeNode.h"
-// #include <iostream>
+#include <vector>
 namespace lomboy_a4 {
 
     // forward declaration
@@ -19,6 +19,8 @@ namespace lomboy_a4 {
         typedef DataType dataType;   // to access data type of binary tree
         // enumerated (codes for method parameters)
         enum class Code { ASCEND, DESCEND, PREORDER, INORDER, POSTORDER };
+        // public members
+        std::vector<DataType> sortedEntries;
         // constructors
         BinaryTree();                       // default
         BinaryTree(DataType dat);           // parametrized
@@ -27,7 +29,7 @@ namespace lomboy_a4 {
         ~BinaryTree();
         // modification methods
         void insert(DataType dat);
-        bool search(DataType dat);
+        bool search(DataType entry);
         void sort(Code orderMode);
         // void sortAsc();
         // void sortDsc();
@@ -47,8 +49,11 @@ namespace lomboy_a4 {
         int entries;
         // helper methods
         void insert(DataType dat, BinaryTreeNode<DataType>* nodePtr);
+        bool search(DataType entry, BinaryTreeNode<DataType>* nodePtr);
         void dispInorder(const BinaryTreeNode<DataType>* nodePtr);
         void clearTree(BinaryTreeNode<DataType>*& node);
+        void sortToArray(Code orderMode, BinaryTreeNode<DataType>* nodePtr, int& index);
+        // void process(Function f, BinaryTreeNode<DataType>* nodePtr, Code orderMode);
     };
 
 }
