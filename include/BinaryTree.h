@@ -7,6 +7,7 @@
 
 #include "BinaryTreeNode.h"
 #include <vector>
+#include <string>
 namespace lomboy_a4 {
 
     // forward declaration
@@ -31,10 +32,9 @@ namespace lomboy_a4 {
         void insert(DataType dat);
         bool search(DataType entry);
         void sort(Code orderMode);
-        // void sortAsc();
-        // void sortDsc();
-        void remove(DataType dat);
+        void remove(DataType entry);
         void clearTree();
+        void insertFromFile(std::string fileName);
         // constant methods
         void iterate();     // default is in-order
         // void iterate(Code orderMode);     // make enum of modes? (post, pre, in order)
@@ -50,9 +50,13 @@ namespace lomboy_a4 {
         // helper methods
         void insert(DataType dat, BinaryTreeNode<DataType>* nodePtr);
         bool search(DataType entry, BinaryTreeNode<DataType>* nodePtr);
+        BinaryTreeNode<DataType>* searchRemove(DataType entry, BinaryTreeNode<DataType>* nodePtr);
         void dispInorder(const BinaryTreeNode<DataType>* nodePtr);
         void clearTree(BinaryTreeNode<DataType>*& node);
         void sortToArray(Code orderMode, BinaryTreeNode<DataType>* nodePtr, int& index);
+        BinaryTreeNode<DataType>* remove(DataType entry, BinaryTreeNode<DataType>* entryPtr);
+        BinaryTreeNode<DataType>* findMax(BinaryTreeNode<DataType>* currentPtr);
+        BinaryTreeNode<DataType>* copyTree(BinaryTreeNode<DataType>* root);
         // void process(Function f, BinaryTreeNode<DataType>* nodePtr, Code orderMode);
     };
 

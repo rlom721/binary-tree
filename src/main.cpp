@@ -2,6 +2,8 @@
 #include "BinaryTree.cpp"
 #include "BinaryTreeNode.h"
 #include "BinaryTreeNode.cpp"
+#include <iostream>
+#include <string>
 using namespace std;
 using namespace lomboy_a4;
 
@@ -11,37 +13,39 @@ int main() {
     // li.setRight(&li2);
     // cout << li << endl;
 
-    BinaryTree<int> bt(7);
+    BinaryTree<string> bt("Loopy");
     // bt.iterate();
 
-    bt.insert(5);
-    bt.insert(6);
-    bt.insert(4);
+    bt.insert("Haha");
+    bt.insert("Iostream");
+    bt.insert("Floop");
     // bt.iterate();
     bt.clearTree();
-    bt.insert(1);
-    bt.insert(2);
-    bt.insert(0);
-    bt.insert(3);
-    cout << "1 in tree? " << (bt.search(1) ? "true" : "false") << endl;
-    cout << "2 in tree? " << (bt.search(2) ? "true" : "false") << endl;
-    cout << "0 in tree? " << (bt.search(0) ? "true" : "false") << endl;
-    cout << "3 in tree? " << (bt.search(3) ? "true" : "false") << endl;
-    cout << "4 in tree? " << (bt.search(4) ? "true" : "false") << endl;
+    bt.insert("Bababa");
+    bt.insert("Cacaca");
+    bt.insert("Ababa");
+    bt.insert("Don't");
+    cout << "1 in tree? " << (bt.search("Bababa") ? "true" : "false") << endl;
+    cout << "2 in tree? " << (bt.search("Cacaca") ? "true" : "false") << endl;
+    cout << "0 in tree? " << (bt.search("Ababa") ? "true" : "false") << endl;
+    cout << "3 in tree? " << (bt.search("Floop") ? "true" : "false") << endl;
     bt.iterate();
-    bt.sort(BinaryTree<int>::Code::ASCEND);
+    bt.sort(BinaryTree<string>::Code::ASCEND);
 
     for (int i = 0; i < bt.getEntries(); i++) 
         cout << " " << bt.sortedEntries[i];
     
     cout << endl;
 
-    bt.sort(BinaryTree<int>::Code::DESCEND);
+    bt.sort(BinaryTree<string>::Code::DESCEND);
 
     for (int i = 0; i < bt.getEntries(); i++) 
         cout << " " << bt.sortedEntries[i];
     
     cout << endl;
+    BinaryTree<string> copy = bt;
+    // bt.remove("Bababa");
+    copy.iterate();
 
     return 0;
 }
