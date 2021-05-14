@@ -54,7 +54,7 @@ namespace lomboy_a4 {
         void dispInorder(const BinaryTreeNode<DataType>* nodePtr);
         void clearTree(BinaryTreeNode<DataType>*& node);
         void sortToArray(Code orderMode, BinaryTreeNode<DataType>* nodePtr, int& index);
-        BinaryTreeNode<DataType>* remove(DataType entry, BinaryTreeNode<DataType>*& subrootPtr);
+        BinaryTreeNode<DataType>* remove(DataType entry, BinaryTreeNode<DataType>*& nodePtr);
         BinaryTreeNode<DataType>* findMax(BinaryTreeNode<DataType>* currentPtr);
         BinaryTreeNode<DataType>* copyTree(BinaryTreeNode<DataType>* root);
         // void process(Function f, BinaryTreeNode<DataType>* nodePtr, Code orderMode);

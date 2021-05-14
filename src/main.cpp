@@ -23,10 +23,10 @@ int main() {
     test.insert("Rochester");
     test.insert("Wichita");
     test.iterate();
-    // test.remove("Pitt");
-    test.remove("Denver");
-    // cout << "---REMOVED Pitt ---\n";
-    cout << "---REMOVED Denver ---\n";
+    test.remove("Pitt");
+    // test.remove("Denver");
+    cout << "---REMOVED Pitt ---\n";
+    // cout << "---REMOVED Denver ---\n";
     test.iterate();
     cout << "entries: " << test.getEntries() << endl;
 

@@ -207,82 +207,47 @@ namespace lomboy_a4 {
     // Deletes an entry in tree
     template <class DataType>
     void BinaryTree<DataType>::remove(DataType entry) {
-        BinaryTreeNode<DataType>* entryPtr;    // pointer of entry to delete
-        // BinaryTreeNode<DataType>* tempPtr;      // temp pointer to help with deletion
-        
-        // entryPtr = searchRemove(entry, rootPtr);
-        searchRemove(entry, rootPtr, entryPtr);
-
-        if (entryPtr != nullptr) {
-            // // node to delete is leaf, so simply delete it
-            // if (entryPtr->getRight() == nullptr && entryPtr->getLeft() == nullptr) {
-            //     BinaryTreeNode<DataType>* tempPtr = entryPtr;   // hi !!
-            //     entryPtr = nullptr;
-            //     cout << "entryPtr: " << entryPtr << endl;
-            //     delete tempPtr;
-            // }
-            // left pointer is null, so promote right (works for leaves too)
-            if (entryPtr->getLeft() == nullptr) {
-                // BinaryTreeNode<DataType>* tempPtr = entryPtr;
-                entryPtr = entryPtr->getRight();
-                // delete tempPtr;
-                // tempPtr = nullptr;
-            }
-            // both left AND right children are NOT null
-            else {
-                // find max value in left subtree, copy its data into entryPtr
-                BinaryTreeNode<DataType>* tempPtr = findMax(entryPtr->getLeft());
-                entryPtr->set(tempPtr->getData());
-
-                // delete max value in left subtree and reassign the root of left subtree
-                entryPtr->setLeft(remove(tempPtr->getData(), entryPtr->getLeft()));
-                delete tempPtr;
-                // tempPtr = nullptr;
-            }
-        }
+        rootPtr = remove(entry, rootPtr);
         entries--;
     }
 
-    // Helper function - recursively deletes an entry in tree, returning new root
+    // Helper function - recursively deletes an entry in tree, returning new root (of that portion of tree)
     template <class DataType>
-    BinaryTreeNode<DataType>* BinaryTree<DataType>::remove(DataType entry, BinaryTreeNode<DataType>*& subrootPtr) {
-        BinaryTreeNode<DataType>* entryPtr;     // pointer of entry to delete
-        BinaryTreeNode<DataType>* tempPtr;  
-                                //   tempPtr;      // temp pointer to help with deletion
-
-        // entryPtr = searchRemove(entry, subrootPtr);
-        searchRemove(entry, subrootPtr, entryPtr);
+    BinaryTreeNode<DataType>* BinaryTree<DataType>::remove(DataType entry, BinaryTreeNode<DataType>*& nodePtr) {
+        // BinaryTreeNode<DataType>* tempPtr;    // pointer of entry to delete
         
-        if (entryPtr != nullptr) {
-            // // node to delete is leaf, so simply delete it
-            // if (entryPtr->getRight() == nullptr && entryPtr->getLeft() == nullptr) {
-            //     // BinaryTreeNode<DataType>* tempPtr = entryPtr;  
-            //     tempPtr = *entryPtr;  
-            //     delete tempPtr;
-            //     entryPtr = nullptr;
-            //     // tempPtr = nullptr;
-            // }
-            // left pointer is null, so promote right
-            if (entryPtr->getLeft() == nullptr) {
-                BinaryTreeNode<DataType>* tempPtr = entryPtr;  
-                entryPtr = tempPtr->getRight();
-                // delete tempPtr;
-                // tempPtr = nullptr;
+        // empty tree
+        if (nodePtr == nullptr) {
+            return nullptr;
+        }
+        // data precedes current node's data, so remove on left
+        else if (entry < nodePtr->getData()) {
+            remove(entry, nodePtr->getLeft());
+        }
+        // data proceeds current node's data, so remove on right
+        else if (entry > nodePtr->getData()) {
+            remove(entry, nodePtr->getRight());
+        }
+        // data matches the current node!
+        else {
+            // current node doesn't have left child, OR is a leaf
+            if (nodePtr->getLeft() == nullptr) {
+                BinaryTreeNode<DataType>* tempPtr = nodePtr;
+                nodePtr = nodePtr->getRight();
+                delete tempPtr;
             }
-            // both left AND right children are NOT null
+            // current node has two children
             else {
-                // find max value in left subtree, copy its data into entryPtr
-                BinaryTreeNode<DataType>* tempPtr = findMax(entryPtr->getLeft());
-                entryPtr->set(tempPtr->getData());
+                // find max value in left tree, copy data to entryPtr
+                BinaryTreeNode<DataType>* tempPtr = findMax(nodePtr->getLeft());
+                nodePtr->set(tempPtr->getData());
 
-                // delete max value in left subtree and reassign the root of left subtree
-                entryPtr->setLeft(remove(tempPtr->getData(), entryPtr->getLeft()));
-                // delete tempPtr;
-                // tempPtr = nullptr;
+                // delete old location of max value
+                nodePtr->setLeft(remove(tempPtr->getData(), nodePtr->getLeft()));
             }
         }
-
-        return subrootPtr;
+        
+        return nodePtr;
     }
 
     // Returns pointer to maximum value in a (sub)tree
@@ -294,43 +259,6 @@ namespace lomboy_a4 {
             maxPtr = maxPtr->getRight();
 
         return maxPtr;
-    }
-
-    // Helper function - recursively searches for an entry
-    template <class DataType>
-    void BinaryTree<DataType>::searchRemove(DataType entry, BinaryTreeNode<DataType>* nodePtr, BinaryTreeNode<DataType>*& remPtr) {
-        
-        // entry matches data of node
-        if (nodePtr->getData() == entry) {
-            // return rootPtr;
-            remPtr = nodePtr;
-        }
-        // data precedes current node's data, so search on left
-        else if (entry < nodePtr->getData()) {
-            // empty left node found, so return it
-            if (nodePtr->getLeft() == nullptr) {
-                // return rootPtr;
-                remPtr = nodePtr;
-            }
-            // call recursive search
-            else {
-                // return searchRemove(entry, rootPtr->getLeft());
-                searchRemove(entry, nodePtr->getLeft(), remPtr);
-            }
-        }
-        // data proceeds current node's data, so search on left
-        else {
-            // empty left node found, so create new node
-            if (nodePtr->getRight() == nullptr) {
-                // return rootPtr;
-                remPtr = nodePtr;
-            }
-            // call recursive search
-            else {
-                // return searchRemove(entry, rootPtr->getRight());
-                return searchRemove(entry, nodePtr->getRight(), remPtr);
-            }
-        }
     }
 
     template <class DataType>
