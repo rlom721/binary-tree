@@ -1,5 +1,7 @@
 #include "BinaryTree.h"    // header file for BinaryTree class
 #include <iostream>
+#include <fstream>
+#include <cassert>
 // #include <vector>     
 using namespace std;
 namespace lomboy_a4 {
@@ -202,79 +204,87 @@ namespace lomboy_a4 {
         }
     }
 
-    // // Deletes an entry in tree
-    // template <class DataType>
-    // void BinaryTree<DataType>::remove(DataType entry) {
-    //     BinaryTreeNode<DataType>* entryPtr;     // pointer of entry to delete
-    //                             //   tempPtr;      // temp pointer to help with deletion
+    // Deletes an entry in tree
+    template <class DataType>
+    void BinaryTree<DataType>::remove(DataType entry) {
+        BinaryTreeNode<DataType>* entryPtr;    // pointer of entry to delete
+                                //   tempPtr;      // temp pointer to help with deletion
         
-    //     entryPtr = searchRemove(entry, rootPtr);
+        entryPtr = searchRemove(entry, rootPtr);
 
-    //     if (entryPtr != nullptr) {
-    //         // node to delete is leaf, so simply delete it
-    //         if ((entryPtr->getRight() == nullptr) && (entryPtr->getLeft() == nullptr)) {
-    //             BinaryTreeNode<DataType>* tempPtr = entryPtr;   // hi !!
-    //             delete tempPtr;
-    //             entryPtr = nullptr;
-    //             tempPtr = nullptr;
-    //         }
-    //         // left pointer is null, so promote right
-    //         else if (entryPtr->getLeft() == nullptr) {
-    //             BinaryTreeNode<DataType>* tempPtr = entryPtr;
-    //             entryPtr = tempPtr->getRight();
-    //             delete tempPtr;
-    //             tempPtr = nullptr;
-    //         }
-    //         // both left AND right children are NOT null
-    //         else {
-    //             // find max value in left subtree, copy its data into entryPtr
-    //             BinaryTreeNode<DataType>*tempPtr = findMax(entryPtr->getLeft());
-    //             entryPtr->set(tempPtr->getData());
+        if (entryPtr != nullptr) {
+            // node to delete is leaf, so simply delete it
+            // if (entryPtr->getRight() == nullptr && entryPtr->getLeft() == nullptr) {
+            //     BinaryTreeNode<DataType>* tempPtr = entryPtr;   // hi !!
+            //     // tempPtr = entryPtr;   
+            //     // delete tempPtr;
+            //     entryPtr = nullptr;
+            //     cout << "entryPtr: " << entryPtr << endl;
+            //     // tempPtr = nullptr;
+            // }
+            // left pointer is null, so promote right
+            if (entryPtr->getLeft() == nullptr) {
+                BinaryTreeNode<DataType>* tempPtr = entryPtr;
+                // tempPtr = entryPtr;
+                entryPtr = tempPtr->getRight();
+                delete tempPtr;
+                // tempPtr = nullptr;
+            }
+            // both left AND right children are NOT null
+            else {
+                // find max value in left subtree, copy its data into entryPtr
+                BinaryTreeNode<DataType>*tempPtr = findMax(entryPtr->getLeft());
+                entryPtr->set(tempPtr->getData());
 
-    //             // delete max value in left subtree and reassign the root of left subtree
-    //             entryPtr->setLeft(remove(tempPtr->getData(), entryPtr->getLeft()));
-    //             delete tempPtr;
-    //             tempPtr = nullptr;
-    //         }
-    //     }
-    // }
+                // delete max value in left subtree and reassign the root of left subtree
+                entryPtr->setLeft(remove(tempPtr->getData(), entryPtr->getLeft()));
+                // delete tempPtr;
+                // tempPtr = nullptr;
+            }
+        }
+        entries--;
+    }
 
-    // // Helper function - recursively deletes an entry in tree, returning new root
-    // template <class DataType>
-    // BinaryTreeNode<DataType>* BinaryTree<DataType>::remove(DataType entry, BinaryTreeNode<DataType>* subrootPtr) {
-    //     BinaryTreeNode<DataType>* entryPtr,     // pointer of entry to delete
-    //                               tempPtr;      // temp pointer to help with deletion
+    // Helper function - recursively deletes an entry in tree, returning new root
+    template <class DataType>
+    BinaryTreeNode<DataType>* BinaryTree<DataType>::remove(DataType entry, BinaryTreeNode<DataType>*& subrootPtr) {
+        BinaryTreeNode<DataType>* entryPtr;     // pointer of entry to delete
+        BinaryTreeNode<DataType>* tempPtr;  
+                                //   tempPtr;      // temp pointer to help with deletion
 
-    //     entryPtr = search(entry, subrootPtr);
+        entryPtr = searchRemove(entry, subrootPtr);
         
-    //     if (entryPtr != nullptr) {
-    //         // node to delete is leaf, so simply delete it
-    //         if (entryPtr->getRight() == nullptr && entryPtr->getLeft() == nullptr) {
-    //             tempPtr = entryPtr;
-    //             delete tempPtr;
-    //             entryPtr = nullptr;
-    //         }
-    //         // left pointer is null, so promote right
-    //         else if (entryPtr->getLeft() == nullptr) {
-    //             tempPtr = entryPtr;
-    //             entryPtr = tempPtr->getRight();
-    //             delete tempPtr;
-    //         }
-    //         // both left AND right children are NOT null
-    //         else {
-    //             // find max value in left subtree, copy its data into entryPtr
-    //             tempPtr = findMax(entryPtr->getLeft());
-    //             entryPtr->setData(tempPtr->getData());
+        if (entryPtr != nullptr) {
+            // node to delete is leaf, so simply delete it
+            if (entryPtr->getRight() == nullptr && entryPtr->getLeft() == nullptr) {
+                // BinaryTreeNode<DataType>* tempPtr = entryPtr;  
+                tempPtr = entryPtr;  
+                delete tempPtr;
+                entryPtr = nullptr;
+                // tempPtr = nullptr;
+            }
+            // left pointer is null, so promote right
+            else if (entryPtr->getLeft() == nullptr) {
+                BinaryTreeNode<DataType>* tempPtr = entryPtr;  
+                entryPtr = tempPtr->getRight();
+                // delete tempPtr;
+                // tempPtr = nullptr;
+            }
+            // both left AND right children are NOT null
+            else {
+                // find max value in left subtree, copy its data into entryPtr
+                BinaryTreeNode<DataType>* tempPtr = findMax(entryPtr->getLeft());
+                entryPtr->set(tempPtr->getData());
 
-    //             // delete max value in left subtree and reassign the root of left subtree
-    //             entryPtr->setLeft(remove(tempPtr->getData(), entryPtr->getLeft()));
-    //             delete tempPtr;
-    //         }
-    //     }
+                // delete max value in left subtree and reassign the root of left subtree
+                entryPtr->setLeft(remove(tempPtr->getData(), entryPtr->getLeft()));
+                // delete tempPtr;
+                // tempPtr = nullptr;
+            }
+        }
 
-    //     tempPtr = nullptr;
-    //     return entryPtr;
-    // }
+        return subrootPtr;
+    }
 
     // Returns pointer to maximum value in a (sub)tree
     template <class DataType>
@@ -289,7 +299,7 @@ namespace lomboy_a4 {
 
     // Helper function - recursively inserts an entry to the next available leaf
     template <class DataType>
-    BinaryTreeNode<DataType>* BinaryTree<DataType>::searchRemove(DataType entry, BinaryTreeNode<DataType>* nodePtr) {
+    BinaryTreeNode<DataType>* BinaryTree<DataType>::searchRemove(DataType entry, BinaryTreeNode<DataType>*& nodePtr) {
         // entry matches data of node
         if (nodePtr->getData() == entry) {
             return nodePtr;
@@ -333,6 +343,29 @@ namespace lomboy_a4 {
         return copyNode;
     }
 
+    // This method takes a data file name and inserts all records into the binary tree
+    // from file, line by line.
+    template <class DataType>
+    void BinaryTree<DataType>::insertFromFile(string fileName) {
+        ifstream inFile;
+        string line, word;
+        inFile.open(fileName);
+
+        // check for failure in opening file
+        assert(inFile);
+
+        // read data in from file loop until end of file reached
+        while (getline(inFile, line)) {
+            // parse each line 
+            word = line.substr(0, line.find('\n'));
+
+            //insert text to tree
+            insert(word);
+        }
+
+        inFile.close();
+    }
+
     // template <class DataType>
-    // void process(Function f, BinaryTreeNode<DataType>* nodePtr, Code orderMode);
+    // BinaryTree& BinaryTree<DataType>::operator=(const BinaryTree& li);
 }

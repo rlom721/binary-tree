@@ -82,12 +82,12 @@ namespace lomboy_a4 {
         out << li.getData() << endl;
 
         // check for nullptr to avoid seg fault
-        if (li.leftPtr == nullptr)
+        if (li.leftPtr == nullptr || li.leftPtr == NULL)
             out << "leftPtr is nullptr";
         else
             out << "leftPtr " << li.leftPtr->getData();
 
-        if (li.rightPtr == nullptr)
+        if (li.rightPtr == nullptr || li.rightPtr == NULL )
             out << "\nrightPtr is nullptr" << endl;
         else
             out << "\nrightPtr " << li.rightPtr->getData() << endl;

@@ -50,11 +50,11 @@ namespace lomboy_a4 {
         // helper methods
         void insert(DataType dat, BinaryTreeNode<DataType>* nodePtr);
         bool search(DataType entry, BinaryTreeNode<DataType>* nodePtr);
-        BinaryTreeNode<DataType>* searchRemove(DataType entry, BinaryTreeNode<DataType>* nodePtr);
+        BinaryTreeNode<DataType>* searchRemove(DataType entry, BinaryTreeNode<DataType>*& nodePtr);
         void dispInorder(const BinaryTreeNode<DataType>* nodePtr);
         void clearTree(BinaryTreeNode<DataType>*& node);
         void sortToArray(Code orderMode, BinaryTreeNode<DataType>* nodePtr, int& index);
-        BinaryTreeNode<DataType>* remove(DataType entry, BinaryTreeNode<DataType>* entryPtr);
+        BinaryTreeNode<DataType>* remove(DataType entry, BinaryTreeNode<DataType>*& subrootPtr);
         BinaryTreeNode<DataType>* findMax(BinaryTreeNode<DataType>* currentPtr);
         BinaryTreeNode<DataType>* copyTree(BinaryTreeNode<DataType>* root);
         // void process(Function f, BinaryTreeNode<DataType>* nodePtr, Code orderMode);
