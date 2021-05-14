@@ -208,37 +208,35 @@ namespace lomboy_a4 {
     template <class DataType>
     void BinaryTree<DataType>::remove(DataType entry) {
         BinaryTreeNode<DataType>* entryPtr;    // pointer of entry to delete
-                                //   tempPtr;      // temp pointer to help with deletion
+        // BinaryTreeNode<DataType>* tempPtr;      // temp pointer to help with deletion
         
-        entryPtr = searchRemove(entry, rootPtr);
+        // entryPtr = searchRemove(entry, rootPtr);
+        searchRemove(entry, rootPtr, entryPtr);
 
         if (entryPtr != nullptr) {
-            // node to delete is leaf, so simply delete it
+            // // node to delete is leaf, so simply delete it
             // if (entryPtr->getRight() == nullptr && entryPtr->getLeft() == nullptr) {
             //     BinaryTreeNode<DataType>* tempPtr = entryPtr;   // hi !!
-            //     // tempPtr = entryPtr;   
-            //     // delete tempPtr;
             //     entryPtr = nullptr;
             //     cout << "entryPtr: " << entryPtr << endl;
-            //     // tempPtr = nullptr;
+            //     delete tempPtr;
             // }
-            // left pointer is null, so promote right
+            // left pointer is null, so promote right (works for leaves too)
             if (entryPtr->getLeft() == nullptr) {
-                BinaryTreeNode<DataType>* tempPtr = entryPtr;
-                // tempPtr = entryPtr;
-                entryPtr = tempPtr->getRight();
-                delete tempPtr;
+                // BinaryTreeNode<DataType>* tempPtr = entryPtr;
+                entryPtr = entryPtr->getRight();
+                // delete tempPtr;
                 // tempPtr = nullptr;
             }
             // both left AND right children are NOT null
             else {
                 // find max value in left subtree, copy its data into entryPtr
-                BinaryTreeNode<DataType>*tempPtr = findMax(entryPtr->getLeft());
+                BinaryTreeNode<DataType>* tempPtr = findMax(entryPtr->getLeft());
                 entryPtr->set(tempPtr->getData());
 
                 // delete max value in left subtree and reassign the root of left subtree
                 entryPtr->setLeft(remove(tempPtr->getData(), entryPtr->getLeft()));
-                // delete tempPtr;
+                delete tempPtr;
                 // tempPtr = nullptr;
             }
         }
@@ -252,19 +250,20 @@ namespace lomboy_a4 {
         BinaryTreeNode<DataType>* tempPtr;  
                                 //   tempPtr;      // temp pointer to help with deletion
 
-        entryPtr = searchRemove(entry, subrootPtr);
+        // entryPtr = searchRemove(entry, subrootPtr);
+        searchRemove(entry, subrootPtr, entryPtr);
         
         if (entryPtr != nullptr) {
-            // node to delete is leaf, so simply delete it
-            if (entryPtr->getRight() == nullptr && entryPtr->getLeft() == nullptr) {
-                // BinaryTreeNode<DataType>* tempPtr = entryPtr;  
-                tempPtr = entryPtr;  
-                delete tempPtr;
-                entryPtr = nullptr;
-                // tempPtr = nullptr;
-            }
+            // // node to delete is leaf, so simply delete it
+            // if (entryPtr->getRight() == nullptr && entryPtr->getLeft() == nullptr) {
+            //     // BinaryTreeNode<DataType>* tempPtr = entryPtr;  
+            //     tempPtr = *entryPtr;  
+            //     delete tempPtr;
+            //     entryPtr = nullptr;
+            //     // tempPtr = nullptr;
+            // }
             // left pointer is null, so promote right
-            else if (entryPtr->getLeft() == nullptr) {
+            if (entryPtr->getLeft() == nullptr) {
                 BinaryTreeNode<DataType>* tempPtr = entryPtr;  
                 entryPtr = tempPtr->getRight();
                 // delete tempPtr;
@@ -297,33 +296,39 @@ namespace lomboy_a4 {
         return maxPtr;
     }
 
-    // Helper function - recursively inserts an entry to the next available leaf
+    // Helper function - recursively searches for an entry
     template <class DataType>
-    BinaryTreeNode<DataType>* BinaryTree<DataType>::searchRemove(DataType entry, BinaryTreeNode<DataType>*& nodePtr) {
+    void BinaryTree<DataType>::searchRemove(DataType entry, BinaryTreeNode<DataType>* nodePtr, BinaryTreeNode<DataType>*& remPtr) {
+        
         // entry matches data of node
         if (nodePtr->getData() == entry) {
-            return nodePtr;
+            // return rootPtr;
+            remPtr = nodePtr;
         }
         // data precedes current node's data, so search on left
         else if (entry < nodePtr->getData()) {
             // empty left node found, so return it
             if (nodePtr->getLeft() == nullptr) {
-                return nodePtr;
+                // return rootPtr;
+                remPtr = nodePtr;
             }
             // call recursive search
             else {
-                return searchRemove(entry, nodePtr->getLeft());
+                // return searchRemove(entry, rootPtr->getLeft());
+                searchRemove(entry, nodePtr->getLeft(), remPtr);
             }
         }
         // data proceeds current node's data, so search on left
         else {
             // empty left node found, so create new node
             if (nodePtr->getRight() == nullptr) {
-                return nodePtr;
+                // return rootPtr;
+                remPtr = nodePtr;
             }
             // call recursive search
             else {
-                return searchRemove(entry, nodePtr->getRight());
+                // return searchRemove(entry, rootPtr->getRight());
+                return searchRemove(entry, nodePtr->getRight(), remPtr);
             }
         }
     }

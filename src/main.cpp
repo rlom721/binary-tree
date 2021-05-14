@@ -51,15 +51,15 @@ void GenBTReport() {
 
     bt.sort(BinaryTree<string>::Code::ASCEND);
 
-    for (int i = 0; i < bt.sortedEntries.size(); i++)
+    for (int i = 0; i < static_cast<int>(bt.sortedEntries.size()); i++)
         sortFile << bt.sortedEntries[i] << '\n';
 
-        sortFile << "Descending order:\n\n";
+    sortFile << "Descending order:\n\n";
 
-        bt.sort(BinaryTree<string>::Code::DESCEND);
+    bt.sort(BinaryTree<string>::Code::DESCEND);
 
-        for (int i = 0; i < bt.sortedEntries.size(); i++)
-            sortFile << bt.sortedEntries[i] << '\n';
+    for (int i = 0; i < static_cast<int>(bt.sortedEntries.size()); i++)
+        sortFile << bt.sortedEntries[i] << '\n';
 
     sortFile.close();
 }

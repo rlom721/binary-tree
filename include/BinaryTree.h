@@ -40,7 +40,7 @@ namespace lomboy_a4 {
         // void iterate(Code orderMode);     // make enum of modes? (post, pre, in order)
         int getEntries() { return entries; }
         // overloaded operators
-        // BinaryTree& operator=(const BinaryTree& li);
+        BinaryTree& operator=(const BinaryTree& li);
         // friend functions
     private:
         // member variables
@@ -50,7 +50,7 @@ namespace lomboy_a4 {
         // helper methods
         void insert(DataType dat, BinaryTreeNode<DataType>* nodePtr);
         bool search(DataType entry, BinaryTreeNode<DataType>* nodePtr);
-        BinaryTreeNode<DataType>* searchRemove(DataType entry, BinaryTreeNode<DataType>*& nodePtr);
+        void searchRemove(DataType entry, BinaryTreeNode<DataType>* nodePtr, BinaryTreeNode<DataType>*& remPtr);
         void dispInorder(const BinaryTreeNode<DataType>* nodePtr);
         void clearTree(BinaryTreeNode<DataType>*& node);
         void sortToArray(Code orderMode, BinaryTreeNode<DataType>* nodePtr, int& index);
