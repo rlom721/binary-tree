@@ -36,12 +36,9 @@ namespace lomboy_a4 {
         void clearTree();
         void insertFromFile(std::string fileName);
         // constant methods
-        void iterate();     // default is in-order
-        // void iterate(Code orderMode);     // make enum of modes? (post, pre, in order)
+        void print();     // make enum of modes? (post, pre, in order)
+        void iterate(void (*func)(DataType), Code orderMode);     // make enum of modes? (post, pre, in order)
         int getEntries() { return entries; }
-        // overloaded operators
-        BinaryTree& operator=(const BinaryTree& li);
-        // friend functions
     private:
         // member variables
         BinaryTreeNode<DataType>* rootPtr;
@@ -50,14 +47,14 @@ namespace lomboy_a4 {
         // helper methods
         void insert(DataType dat, BinaryTreeNode<DataType>* nodePtr);
         bool search(DataType entry, BinaryTreeNode<DataType>* nodePtr);
-        void searchRemove(DataType entry, BinaryTreeNode<DataType>* nodePtr, BinaryTreeNode<DataType>*& remPtr);
         void dispInorder(const BinaryTreeNode<DataType>* nodePtr);
         void clearTree(BinaryTreeNode<DataType>*& node);
         void sortToArray(Code orderMode, BinaryTreeNode<DataType>* nodePtr, int& index);
         BinaryTreeNode<DataType>* remove(DataType entry, BinaryTreeNode<DataType>*& nodePtr);
         BinaryTreeNode<DataType>* findMax(BinaryTreeNode<DataType>* currentPtr);
         BinaryTreeNode<DataType>* copyTree(BinaryTreeNode<DataType>* root);
-        // void process(Function f, BinaryTreeNode<DataType>* nodePtr, Code orderMode);
+        void process(void (*func)(DataType), BinaryTreeNode<DataType>* nodePtr, Code orderMode);
+        void print(BinaryTreeNode<DataType>* nodePtr);
     };
 
 }

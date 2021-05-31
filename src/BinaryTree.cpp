@@ -134,10 +134,16 @@ namespace lomboy_a4 {
         }
     }
 
-    // Iterates over all entries in tree, printing in-order
     template <class DataType>
-    void BinaryTree<DataType>::iterate() {
+    void BinaryTree<DataType>::print() {
         dispInorder(rootPtr);
+    } 
+
+    // This method takes a pointer to function and applies it to each entry in the
+    // binary tree, traversing through it in the indicated mode.
+    template <class DataType>
+    void BinaryTree<DataType>::iterate(void (*func)(DataType), Code orderMode) {
+        process(func, rootPtr, orderMode);
     }
 
     // This method clears all tree entries, leaving rootPtr nullptr.
@@ -242,7 +248,7 @@ namespace lomboy_a4 {
                 BinaryTreeNode<DataType>* tempPtr = findMax(nodePtr->getLeft());
                 nodePtr->set(tempPtr->getData());
 
-                // delete old location of max value
+                // delete old location of max value and reassign current node's left pointer
                 nodePtr->setLeft(remove(tempPtr->getData(), nodePtr->getLeft()));
             }
         }
@@ -299,6 +305,29 @@ namespace lomboy_a4 {
         inFile.close();
     }
 
-    // template <class DataType>
-    // BinaryTree& BinaryTree<DataType>::operator=(const BinaryTree& li);
+    // This helper method takes a pointer to function and applies it to each entry in the
+    // binary tree, traversing through it in the indicated mode.
+    template <class DataType>
+    void BinaryTree<DataType>::process(void (*func)(DataType), BinaryTreeNode<DataType>* nodePtr, Code orderMode) {
+        if (nodePtr != nullptr) {
+            // pre-order processing
+            if (orderMode == Code::PREORDER) {
+                func(nodePtr->getData());
+                process(func, nodePtr->getLeft(), orderMode);
+                process(func, nodePtr->getRight(), orderMode);
+            }
+            // in-order processing
+            else if (orderMode == Code::INORDER) {
+                process(func, nodePtr->getLeft(), orderMode);
+                func(nodePtr->getData());
+                process(func, nodePtr->getRight(), orderMode);
+            }
+            // post-order processing
+            else if (orderMode == Code::POSTORDER) {
+                process(func, nodePtr->getLeft(), orderMode);
+                process(func, nodePtr->getRight(), orderMode);
+                func(nodePtr->getData());
+            }
+        }
+    }
 }

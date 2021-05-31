@@ -1,0 +1,61 @@
+SORTED ENTRIES REPORT
+
+Ascending order:
+
+Abstraction
+Automaton
+Control Layer
+DFD
+Distributed Processing
+Dope Vector
+FDDI
+Flip Flop
+GIGO
+Global Variable
+Isolation
+Key Field
+Mhz
+MilStd 2167A
+Neural Net
+Normalization
+OOD
+OS/2
+OSI
+Parallel Architecture
+Pass 1
+Psuedo Coding
+State Machine
+Substrate
+T2 Link
+Uplink
+Vectored Processor
+
+Descending order:
+
+Vectored Processor
+Uplink
+T2 Link
+Substrate
+State Machine
+Psuedo Coding
+Pass 1
+Parallel Architecture
+OSI
+OS/2
+OOD
+Normalization
+Neural Net
+MilStd 2167A
+Mhz
+Key Field
+Isolation
+Global Variable
+GIGO
+Flip Flop
+FDDI
+Dope Vector
+Distributed Processing
+DFD
+Control Layer
+Automaton
+Abstraction

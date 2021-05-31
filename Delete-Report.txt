@@ -1,0 +1,58 @@
+DELETED ENTRIES REPORT
+
+The following entries have been deleted from the report:
+		Isolation, Normalization, Distributed Processing
+
+Ascending order:
+
+Abstraction
+Automaton
+Control Layer
+DFD
+Dope Vector
+FDDI
+Flip Flop
+GIGO
+Global Variable
+Key Field
+Mhz
+MilStd 2167A
+Neural Net
+OOD
+OS/2
+OSI
+Parallel Architecture
+Pass 1
+Psuedo Coding
+State Machine
+Substrate
+T2 Link
+Uplink
+Vectored Processor
+
+Descending order:
+
+Vectored Processor
+Uplink
+T2 Link
+Substrate
+State Machine
+Psuedo Coding
+Pass 1
+Parallel Architecture
+OSI
+OS/2
+OOD
+Neural Net
+MilStd 2167A
+Mhz
+Key Field
+Global Variable
+GIGO
+Flip Flop
+FDDI
+Dope Vector
+DFD
+Control Layer
+Automaton
+Abstraction
